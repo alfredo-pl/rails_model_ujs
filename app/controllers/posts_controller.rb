@@ -4,6 +4,7 @@ class PostsController < ApplicationController
   # GET /posts or /posts.json
   def index
     @posts = Post.all
+    @post = Post.new
   end
 
   # GET /posts/1 or /posts/1.json
@@ -27,9 +28,11 @@ class PostsController < ApplicationController
       if @post.save
         format.html { redirect_to @post, notice: "Post was successfully created." }
         format.json { render :show, status: :created, location: @post }
+        format.js { redirect_to root_path , notice: "Post was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @post.errors, status: :unprocessable_entity }
+        format.js { redirect_to root_path, status: :unprocessable_entity }
       end
     end
   end
